@@ -10,13 +10,13 @@
     </head>
     <body>
         <audio id="kaching" preload="auto" autobuffer> 
-            <source src="kaching.mp3" />
-            <source src="kaching.ogg" />
-            <source src="kaching.wav" />
+            <source src="static/kaching.mp3" />
+            <source src="static/kaching.ogg" />
+            <source src="static/kaching.wav" />
         </audio>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            var socket = io.connect('http://localhost');
+            var socket = io.connect('http://<%= host %>');
             socket.on('kaching', function (data) {
                 kaching.play();
                 console.log('kaching!');
