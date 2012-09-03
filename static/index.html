@@ -1,7 +1,27 @@
-<script src="/socket.io/socket.io.js"></script>
-<script>
-var socket = io.connect('http://localhost');
-socket.on('chink', function (data) {
-	console.log(data);
-});
-</script>
+<!doctype html>
+<html>
+    <head>
+        <title>Ka-Ching!</title>
+        <style>
+            .ching {
+                
+            }
+        </style>
+    </head>
+    <body>
+        <audio id="kaching" preload="auto" autobuffer> 
+            <source src="kaching.mp3" />
+            <source src="kaching.ogg" />
+            <source src="kaching.wav" />
+        </audio>
+        <script src="/socket.io/socket.io.js"></script>
+        <script>
+            var socket = io.connect('http://localhost');
+            socket.on('kaching', function (data) {
+                kaching.play();
+                console.log('kaching!');
+            });
+            var kaching = document.getElementById("kaching");
+        </script>
+    </body>
+</html>

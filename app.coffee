@@ -7,6 +7,11 @@ app = express()
 server = http.createServer(app)
 io = require('socket.io').listen(server)
 
+kaching = ->
+    if io.rooms['/kaching']
+        for clientId in io.rooms['/kaching']
+            io.sockets.socket(clientId).emit('kaching', {})
+
 app.get('/', (req, res)->
     fs.readFile(__dirname + '/index.html',
         (err, data)->
@@ -19,23 +24,31 @@ app.get('/', (req, res)->
 )
 
 app.use('/static', express.static(__dirname + '/static'));
-app.get('/chink', (req, res)->
+app.get('/kaching', (req, res)->
     res.writeHead(200)
     res.end()
-
-    params = url.parse(req.url, true).query
-    if io.rooms['/chink']
-        for clientId in io.rooms['/chink']
-            io.sockets.socket(clientId).emit('chink', {})
+    kaching()
 )
 
 io.sockets.on('connection', (socket)->
-    socket.emit('news', { hello: 'world' })
-    socket.on('my other event', (data)->
-        console.log(data)
-    )
-    socket.join('chink')
+    # socket.emit('news', { hello: 'world' })
+    # socket.on('my other event', (data)->
+    #     console.log(data)
+    # )
+    socket.join('kaching')
 )
+
+irc = require('irc');
+client = new irc.Client('irc.freenode.net', 'tempbot',
+    autoConnect: false
+);
+client.connect(->
+    client.join('#tempbot')
+)
+client.addListener('message', (from, to, message)->
+    if message.toLowerCase().indexOf('kaching') > -1
+        kaching()
+);
 
 server.listen(8000)
 
