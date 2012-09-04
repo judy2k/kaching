@@ -10,9 +10,9 @@ server = http.createServer(app)
 io = require('socket.io').listen(server)
 
 # Configuration:
-app.engine('html', require('ejs').renderFile);
-app.set('views', __dirname + '/views');
-app.set('view engine', 'html');
+app.engine('html', require('ejs').renderFile)
+app.set('views', __dirname + '/views')
+app.set('view engine', 'html')
 
 # Utility Methods:
 kaching = ->
@@ -21,7 +21,7 @@ kaching = ->
             io.sockets.socket(clientId).emit('kaching', {})
 
 # URL Endpoints:
-app.use('/static', express.static(__dirname + '/static'));
+app.use('/static', express.static(__dirname + '/static'))
 app.get('/', (req, res)->
     res.render('index',
         # TODO: This is unlikely to work when behind a proxy.
