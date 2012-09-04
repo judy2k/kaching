@@ -31,3 +31,4 @@ Planned Widgets
 * Extreme feedback widget (big green/red box)
 * Commit log (with Git/SVN adapter)
 * Revenue
+* Various sound-effects that can be triggered via HTTP. (hence Kaching!)
