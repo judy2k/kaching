@@ -38,19 +38,6 @@ io.sockets.on('connection', (socket)->
     socket.join('kaching')
 )
 
-# IRC Stuff ------------------------------------------------------------------
-irc = require('irc');
-client = new irc.Client('irc.freenode.net', 'tempbot',
-    autoConnect: false
-);
-client.connect(->
-    client.join('#tempbot')
-)
-client.addListener('message', (from, to, message)->
-    if message.toLowerCase().indexOf('kaching') > -1
-        kaching()
-);
-
 # Bootstrap ------------------------------------------------------------------
 server.listen(PORT)
 
